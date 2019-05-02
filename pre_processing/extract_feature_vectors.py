@@ -1,18 +1,16 @@
-import os, sys, datetime
-sys.path.append(os.path.join(os.path.dirname(__file__), os.path.pardir))
-import pandas as pd
+import sys, datetime
 import numpy as np
 import javalang as jl
 
 from pre_processing.find_god_classes import find_god_classes
-from utils.misc import write_df_to_csv, sort_column_labels
+from utils.feature_vector_utils import get_fields_accessed_by_method, get_methods_accessed_by_method, fv_dict_to_df
+from utils.misc import write_df_to_csv
 
 DEF_FVS_DIR = "./res/feature_vectors"
 FV_DIR = DEF_FVS_DIR + '/' + str(int(datetime.datetime.now().timestamp()*1000))
 
 
 def extract_feature_vectors(god_classes):
-
 	class_names = god_classes.class_name.tolist()
 	all_feat_vectors = {}
 	for src_path in god_classes.path_to_source.tolist():
@@ -62,14 +60,6 @@ def generate_feat_vector(method, fields, methods):
 	return row
 
 
-def get_fields_accessed_by_method(method, fields):
-	return np.unique([node.member for path, node in method.filter(jl.parser.tree.MemberReference) if node.member in fields])
-
-
-def get_methods_accessed_by_method(method, methods):
-	return np.unique([node.member for path, node in method.filter(jl.parser.tree.MethodInvocation) if node.member in methods])
-
-
 def add_vector(fv, fv_dict):
 	if fv['method_name'] in fv_dict:
 		fv_dict[fv['method_name']].update(fv)
@@ -77,21 +67,10 @@ def add_vector(fv, fv_dict):
 		fv_dict[fv['method_name']] = fv
 
 
-def fv_dict_to_df(vec_dict):
-	df = pd.DataFrame([vec_dict.get(k) for k in vec_dict.keys()])
-	df = df.reindex(columns=sort_column_labels(df.columns.tolist()))
-	df = df.fillna(0)
-	df[[col for col in df.columns if col != 'method_name']] = df[
-		[col for col in df.columns if col != 'method_name']].astype('int')
-
-	return df
-
-
-if __name__ == '__main__':
-
-	if len(sys.argv) < 2:
+def extract_feature_vectors_argparse(args):
+	if args.source is None:
 		print("Enter a the path to a program source code...")
 		sys.exit(0)
 
-	gc = find_god_classes(sys.argv[1])
-	extract_feature_vectors(gc)
+	god_classes = find_god_classes(source=args.source)
+	extract_feature_vectors(god_classes)

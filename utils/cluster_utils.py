@@ -9,7 +9,7 @@ def do_all_cluster_from_path(path, target, f, k):
 	paths_and_names = get_paths_and_names(path)
 
 	for el in paths_and_names:
-		df = f(pd.read_csv(el[0], index_col=0), k)
+		df = f(el[0], k)
 
 		write_df_to_csv(target, df, el[1])
 

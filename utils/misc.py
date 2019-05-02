@@ -1,6 +1,6 @@
+
 import os
 import ntpath
-import pandas as pd
 
 
 def get_paths_and_names(path):
@@ -10,22 +10,17 @@ def get_paths_and_names(path):
 		return list(zip([path], [ntpath.basename(path).replace('.csv', '')]))
 
 
+def listget(li, index, fallback=None):
+	try:
+		return li[index]
+	except IndexError:
+		return fallback
+
+
 def delim(p):
 	if not p.endswith('/'):
 		return '/'
 	return ''
-
-
-def get_fv_values(fv_path):
-	return pd.read_csv(fv_path, index_col=0).sort_values('method_name').drop(['method_name'], axis=1).values
-
-
-def get_fv_methods(fv_path):
-	return pd.read_csv(fv_path, index_col=0).sort_values('method_name')['method_name'].tolist()
-
-
-def get_fv_names_n_values(df):
-	return df['method_name'].values, df.drop(['method_name'], axis=1).values
 
 
 def write_df_to_csv(dir, df, name):

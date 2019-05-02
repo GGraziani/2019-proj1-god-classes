@@ -3,10 +3,10 @@ import javalang as jl
 import pandas as pd
 
 
-def find_god_classes(dir_name):
+def find_god_classes(source=None):
 	df = pd.DataFrame(columns=['class_name', 'method_num', 'path_to_source'])
 
-	for root, dirs, files in os.walk(dir_name, topdown=False):
+	for root, dirs, files in os.walk(source, topdown=False):
 		for name in files:
 			if name.endswith(".java"):
 				with(open(root + "/" + name, 'r')) as jsc:
@@ -28,12 +28,13 @@ def filter_all_classes(all_classes):
 	all_classes.reset_index(drop=True, inplace=True)
 
 	cond = all_classes.method_num.mean() + 6 * all_classes.method_num.std()
-	return all_classes.query('method_num > @cond')
+
+	return all_classes.query('method_num > %s' % cond)
 
 
-if __name__ == '__main__':
-	if len(sys.argv) < 2:
+def find_god_classes_argparse(args):
+	if args.source is None:
 		print("Enter a the path to a program source code...")
 		sys.exit(0)
 
-	print(find_god_classes(sys.argv[1]))
+	return find_god_classes(source=args.source)

@@ -1,0 +1,7 @@
+
+.idea
+.DS_Store
+__pycache__
+res/feature_vectors
+res/clusters
+res/ground_truths

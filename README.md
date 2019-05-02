@@ -22,7 +22,7 @@
             - *$ python3 clustering/silhouette.py <path-to-feature-vector-or-folder>*
             -  Outcome: for each feature vector it computes the silhouette metrics for both algorithms 
             with k ranging from 2 to 40
-3. *Evaluation*
+3. **Evaluation**
     - ground_truth.py:
         - *$ python3 evaluation/ground_truth.py <path-to-cluster-or-folder> <path-to-keywords.txt>*
         - Outcome: for each feature vector it computes the respective ground truth and writes it to
