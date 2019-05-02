@@ -4,7 +4,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), os.path.pardir))
 import datetime
 import pandas as pd
 
-from utils.misc import get_fv_methods, sort_column_labels, write_df_to_csv, get_paths_and_names
+from utils.misc import sort_column_labels, write_df_to_csv, get_paths_and_names
+from utils.feature_vector_utils import get_fv_methods
 
 DEF_GT_DIR = "./res/ground_truths"
 GT_DIR = DEF_GT_DIR + '/' + str(int(datetime.datetime.now().timestamp()*1000))

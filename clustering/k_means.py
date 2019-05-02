@@ -1,4 +1,7 @@
 import os, sys, datetime
+
+from utils.feature_vector_utils import get_fv_names_n_values
+
 sys.path.append(os.path.join(os.path.dirname(__file__), os.path.pardir))
 
 from sklearn.cluster import KMeans
@@ -14,8 +17,8 @@ def k_means(values, n):
 	return KMeans(n_clusters=n, random_state=R).fit_predict(values)
 
 
-def do_k_means(df, n):
-	m, v = get_fv_names_n_values(df)
+def do_k_means(csv_path, n):
+	m, v = get_fv_names_n_values(csv_path)
 	cluster_ids = k_means(v, n)
 	return cluster_to_df(cluster_ids, m)
 

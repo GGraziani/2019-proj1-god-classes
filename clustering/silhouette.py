@@ -6,8 +6,8 @@ from sklearn.metrics import silhouette_score
 from utils.cluster_utils import read_cl_to_df
 from clustering.k_means import k_means
 from clustering.hierarchical import h_agglomerative
-from utils.misc import get_fv_values, get_paths_and_names
-
+from utils.misc import get_paths_and_names
+from utils.feature_vector_utils import get_fv_values
 
 MAX_k = 40
 
@@ -52,7 +52,7 @@ def get_cluster_by_name(clusters, name):
 
 if __name__ == '__main__':
 	if len(sys.argv) < 2:
-		print("Enter a the path to a feature vector or a folder containing feature vectors...")
+		print("Enter the path to a feature vector or a folder containing feature vectors...")
 		sys.exit(0)
 
 	fv_files = get_paths_and_names(sys.argv[1])
