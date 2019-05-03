@@ -1,4 +1,6 @@
-import sys, datetime
+import os
+import sys
+import datetime
 import numpy as np
 import javalang as jl
 
@@ -11,6 +13,7 @@ FV_DIR = DEF_FVS_DIR + '/' + str(int(datetime.datetime.now().timestamp()*1000))
 
 
 def extract_feature_vectors(god_classes):
+	print('\n> Starting feature vector extraction...')
 	class_names = god_classes.class_name.tolist()
 	all_feat_vectors = {}
 	for src_path in god_classes.path_to_source.tolist():
@@ -21,6 +24,8 @@ def extract_feature_vectors(god_classes):
 				if node.name in class_names:
 					all_feat_vectors[node.name] = generate_all(node)
 					write_df_to_csv(FV_DIR, all_feat_vectors[node.name], node.name)
+
+	print('> Feature vector/s has been written to folder "%s"' % FV_DIR)
 
 	return all_feat_vectors
 
@@ -68,8 +73,8 @@ def add_vector(fv, fv_dict):
 
 
 def extract_feature_vectors_argparse(args):
-	if args.source is None:
-		print("Enter a the path to a program source code...")
+	if args.source is None or not os.path.exists(args.source):
+		print("Enter a valid path to a source code...")
 		sys.exit(0)
 
 	god_classes = find_god_classes(source=args.source)

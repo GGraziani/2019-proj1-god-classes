@@ -1,17 +1,9 @@
+import datetime
 import pandas as pd
 from utils.misc import get_paths_and_names, write_df_to_csv
 
-DEF_CLS_DIR = "./res/clusters"
-
-
-def do_all_cluster_from_path(path, target, f, k):
-
-	paths_and_names = get_paths_and_names(path)
-
-	for el in paths_and_names:
-		df = f(el[0], k)
-
-		write_df_to_csv(target, df, el[1])
+R = 10
+CL_DIR = './res/clusters/'
 
 
 def cluster_to_df(ids, methods):
@@ -26,3 +18,26 @@ def cluster_to_df(ids, methods):
 
 def read_cl_to_df(cl_path, sort_field):
 	return pd.read_csv(cl_path, index_col=0).sort_values(sort_field).cluster_id.values
+
+
+def get_target_dir(sub_dir):
+	return CL_DIR + sub_dir + '-' + str(int(datetime.datetime.now().timestamp() * 1000))
+
+
+def do_all_cluster_from_path(
+			path=None,
+			target=None,
+			f=None,
+			n=5):
+
+	print(path)
+	print(target)
+	print(f)
+	print(n)
+
+	paths_and_names = get_paths_and_names(path)
+
+	for el in paths_and_names:
+		df = f(el[0], n)
+
+		write_df_to_csv(target, df, el[1])
