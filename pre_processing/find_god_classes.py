@@ -1,7 +1,7 @@
 import os, sys
 import javalang as jl
 import pandas as pd
-from utils.string_utils import indent
+from utils.misc import indent
 
 
 def find_god_classes(source=None):

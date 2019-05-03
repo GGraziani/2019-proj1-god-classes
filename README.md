@@ -13,19 +13,19 @@
         and writes the result/s to csv
     - silhouette.py:
         - 1st case (with clustering file)
-            - ```$ python3 silhouette.py -fv <path-to-feature-vector-or-folder> -cl <path-to-cluster-or-folder>```
+            - ```$ python3 god_classes.py silhouette -fv <path-to-feature-vector-or-folder> -cl <path-to-cluster-or-folder>```
             - Outcome: for each pair of feature vector and respective cluster, it computes the silhouette 
             score and prints it to the stdout.
         - 2st case (without clustering file)
-            - ```$ python3 silhouette.py -fv <path-to-feature-vector-or-folder> -n <number-of-clusters>```
+            - ```$ python3 god_classes.py silhouette -fv <path-to-feature-vector-or-folder> -n <number-of-clusters>```
             - Outcome: for each feature vector it computes the silhouette metrics for both algorithms 
             with k ranging from 2 to n (default n=40)
 3. **Evaluation**
     - ground_truth.py:
-        - ```$ python3 evaluation/ground_truth.py <path-to-cluster-or-folder> <path-to-keywords.txt>```
+        - ```$ python3 god_classes.py ground_truth -cl <path-to-cluster-or-folder> -k <path-to-keywords.txt>```
         - Outcome: for each feature vector it computes the respective ground truth and writes it to
         a csv file.
     - prec_recall.py:
-        - ```$ python3 evaluation/prec_recall.py <path-to-cluster-or-folder> <path-to-ground-truth-or-folder>```
+        - ```$ python3 god_classes.py prec_recall -cl <path-to-cluster-or-folder> -gt <path-to-ground-truth-or-folder>```
         - Outcome: for each pair of cluster and respective ground truth, it computes precision and recall and 
         prints it to the stdout.

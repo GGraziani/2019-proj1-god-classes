@@ -1,6 +1,7 @@
 import sys
 import argparse
 from utils.doc_utils import *
+from utils.misc import listget
 
 
 # add one gateway function for each functionality
@@ -48,7 +49,7 @@ p_clustering.set_defaults(func=clustering_gateway)
 p_silhouette = subparsers.add_parser('silhouette')
 p_silhouette.add_argument('-fv', '--feature_vector', dest='f_vector', default=None)
 p_silhouette.add_argument('-cl', '--cluster', dest='cluster', default=None)
-p_silhouette.add_argument('-n', '--number_of_clusters', dest='n', default=40)
+p_silhouette.add_argument('-n', '--number_of_clusters', dest='n', default=None)
 p_silhouette.set_defaults(func=silhouette_gateway)
 
 

@@ -1,6 +1,6 @@
 from utils.feature_vector_utils import get_fv_names_n_values
 from sklearn.cluster import KMeans
-from utils.cluster_utils import cluster_to_df
+from utils.cluster_utils import cluster_to_df, R
 
 
 def k_means(values, n):

@@ -1,5 +1,4 @@
-from utils.misc import *
-from utils.string_utils import *
+from utils.misc import indent
 
 DOCSTRING = '''
 2019-proj1-god-classes
