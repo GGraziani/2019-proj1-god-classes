@@ -22,7 +22,7 @@
             with k ranging from 2 to n (default n=40)
 3. **Evaluation**
     - ground_truth.py:
-        - ```$ python3 god_classes.py ground_truth -cl <path-to-cluster-or-folder> -k <path-to-keywords.txt>```
+        - ```$ python3 god_classes.py ground_truth -fv <path-to-feature_vector-or-folder> -k <path-to-keywords>```
         - Outcome: for each feature vector it computes the respective ground truth and writes it to
         a csv file.
     - prec_recall.py:

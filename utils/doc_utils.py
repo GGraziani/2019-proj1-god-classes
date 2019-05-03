@@ -9,6 +9,8 @@ Commands:
 {extract_feature_vectors}
 {clustering}
 {silhouette}
+{ground_truth}
+{prec_recall}
 
 TO SEE DETAILS ON EACH COMMAND, RUN
 > python3 god_classes.py <command>
@@ -22,7 +24,6 @@ find_god_classes:
     Example usage:
         $ python3 god_classes.py find_god_classes -s <path-to-src>
 ''',
-
     'extract_feature_vectors': '''
 extract_feature_vectors:
     For each god class found on the given source code, it computes and writes to csv the respective feature vector.
@@ -30,7 +31,6 @@ extract_feature_vectors:
     Example usage:
         $ python3 god_classes.py extract_feature_vectors -s <path-to-src>
 ''',
-
     'clustering': '''
 clustering:
     For each feature vector it generates n clusters (using the given algorithm) and writes the result/s to csv.
@@ -38,7 +38,6 @@ clustering:
     Example usage:
         $ python3 god_classes.py clustering -a k_means -fv <path-to-feature_vector-or-folder> -n <number-of-clusters>
 ''',
-
     'silhouette': '''
 silhouette:
     1° case (with clustering file): for each pair of feature vector and respective cluster, it computes the silhouette 
@@ -49,6 +48,20 @@ silhouette:
     Example usage:
         1) $ python3 god_classes.py silhouette -fv <path-to-feature-vector-or-folder> -cl <path-to-cluster-or-folder>
         2) $ python3 god_classes.py silhouette -fv <path-to-feature-vector-or-folder> -n <num-of-clusters>
+''',
+    'ground_truth': '''
+ground_truth:
+    For each feature vector it computes the respective ground truth (based on the keywords) and writes it to a csv file.
+
+    Example usage:
+        $ python3 god_classes.py ground_truth -fv <path-to-feature-vector-or-folder> -k <path-to-keywords>
+''',
+    'prec_recall': '''
+prec_recall:
+    For each pair of cluster and respective ground truth, it computes precision and recall and prints it to the stdout.
+
+    Example usage:
+        $ python3 god_classes.py prec_recall -cl <path-to-cluster> -fv <path-to-feature-vector-or-folder>
 '''
 }
 

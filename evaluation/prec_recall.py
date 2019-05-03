@@ -1,6 +1,5 @@
-import os, sys
-sys.path.append(os.path.join(os.path.dirname(__file__), os.path.pardir))
-
+import os
+import sys
 import pandas as pd
 from utils.misc import get_paths_and_names
 
@@ -65,12 +64,25 @@ def compute_precision_n_recall(ip_dk, ip_g):
 	return round(len(interception)/len(ip_dk), 2), round(len(interception)/len(ip_g), 2)
 
 
-if __name__ == '__main__':
-	if len(sys.argv) < 3:
-		print("Enter a the path to a cluster file/folder and a path to the a ground truth file/folder...")
+def prec_recall_argparse(args):
+
+	if args.cluster is None:
+		print("Enter a path to a cluster (or a folder containing clusters).")
+		sys.exit(0)
+	elif not os.path.exists(args.cluster):
+		print(
+			'%s is not a valid path, please enter a path to a valid cluster (or a folder containing clusters)' % args.cluster)
 		sys.exit(0)
 
-	cl_files = get_paths_and_names(sys.argv[1])
-	gt_files = get_paths_and_names(sys.argv[2])
+	if args.g_truth is None:
+		print("Enter a path to a ground truth (or a folder containing ground truths).")
+		sys.exit(0)
+	elif not os.path.exists(args.g_truth):
+		print(
+			'%s is not a valid path, please enter a path to a valid ground truth (or a folder containing ground truths)' % args.g_truth)
+		sys.exit(0)
+
+	cl_files = get_paths_and_names(args.cluster)
+	gt_files = get_paths_and_names(args.g_truth)
 
 	compute_precision_n_recall_all(cl_files, gt_files)
