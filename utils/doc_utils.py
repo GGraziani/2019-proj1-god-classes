@@ -23,6 +23,10 @@ find_god_classes:
 
     Example usage:
         $ python3 god_classes.py find_god_classes -s <path-to-src>
+
+    flags:
+    -s <path-to-src> | --source <path-to-src>:
+        The path to the source code.
 ''',
     'extract_feature_vectors': '''
 extract_feature_vectors:
@@ -30,6 +34,10 @@ extract_feature_vectors:
 
     Example usage:
         $ python3 god_classes.py extract_feature_vectors -s <path-to-src>
+
+    flags:
+    -s <path-to-src> | --source <path-to-src>:
+        The path to the source code.
 ''',
     'clustering': '''
 clustering:
@@ -37,17 +45,38 @@ clustering:
 
     Example usage:
         $ python3 god_classes.py clustering -a k_means -fv <path-to-feature_vector-or-folder> -n <number-of-clusters>
+
+    flags:
+    -a <algorithm-name> | --algorithm <algorithm-name>:
+        The algorithm to use for generating the clusters.
+        Available algorithms are "k_means" and "hierarchical"
+
+    -fv <path-to-feature_vector-or-folder> | --feature_vector <path-to-feature_vector-or-folder>:
+        The path to the feature vector/s.
+
+    -n <positive-integer> | --number_of_clusters <positive-integer>:
+       The number of clusters (1 < n).
 ''',
     'silhouette': '''
 silhouette:
-    1° case (with clustering file): for each pair of feature vector and respective cluster, it computes the silhouette 
+    - 1° case (with clustering file): for each pair of feature vector and respective cluster, it computes the silhouette 
     score and prints it to the stdout.
-    2° case (without clustering file): for each feature vector it computes the silhouette metrics for both algorithms 
+    - 2° case (without clustering file): for each feature vector it computes the silhouette metrics for both algorithms 
     with k ranging from 2 to n (default n=40).
 
     Example usage:
         1) $ python3 god_classes.py silhouette -fv <path-to-feature-vector-or-folder> -cl <path-to-cluster-or-folder>
         2) $ python3 god_classes.py silhouette -fv <path-to-feature-vector-or-folder> -n <num-of-clusters>
+
+    flags:
+    -fv <path-to-feature_vector-or-folder> | --feature_vector <path-to-feature_vector-or-folder>:
+        The path to the feature vector/s.
+
+    -cl <path-to-cluster-or-folder> | --cluster <path-to-cluster-or-folder>:
+        The path to the cluster/s.
+    
+    -n <positive-integer> | --number_of_clusters <positive-integer>:
+       The number of clusters (1 < n).
 ''',
     'ground_truth': '''
 ground_truth:
@@ -55,6 +84,13 @@ ground_truth:
 
     Example usage:
         $ python3 god_classes.py ground_truth -fv <path-to-feature-vector-or-folder> -k <path-to-keywords>
+
+    flags:
+    -fv <path-to-feature_vector-or-folder> | --feature_vector <path-to-feature_vector-or-folder>:
+        The path to the feature vector/s.
+
+    -k <path-to-keywords> | --keywords <path-to-keywords>:
+       The path to the a text file containing keywords (e.g "./res/keywords.txt")
 ''',
     'prec_recall': '''
 prec_recall:
@@ -62,6 +98,23 @@ prec_recall:
 
     Example usage:
         $ python3 god_classes.py prec_recall -cl <path-to-cluster> -fv <path-to-feature-vector-or-folder>
+
+    flags:
+    -cl <path-to-cluster-or-folder> | --cluster <path-to-cluster-or-folder>:
+        The path to the cluster/s.
+
+    -gt <path-to-ground_truth-or-folder> | --ground_truth <path-to-ground_truth-or-folder>:
+        The path to the a file containing the ground truth.
+''',
+    'run_all': '''
+run_all:
+    Run the whole analysis from the god classes detection to the results evaluation.
+
+    Example usage:
+        $ python3 god_classes.py run_all -cl <path-to-cluster> -fv <path-to-feature-vector-or-folder>
+
+    flags:
+    -s
 '''
 }
 
