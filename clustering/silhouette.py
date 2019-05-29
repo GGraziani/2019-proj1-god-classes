@@ -24,7 +24,7 @@ def find_best_k_all(fvs, n=MAX_k):
 	for path, name in fvs:
 		print('\n> Filename: %s\n' % name)
 		print(indent('cluster\tK-Means\t Agglomerative'))
-		[print(indent('\t\t'.join(m))) for m in find_best_k(get_fv_values(path), n)]
+		[print(indent('\t\t'.join(m))) for m in find_best_k(get_fv_values(path), n+1)]
 
 
 def find_best_k(fv, n):
@@ -70,7 +70,7 @@ def silhouette_argparse(args):
 
 	# Checks whether not both (cluster and n) are entered by the user.
 	elif not is_xor(args.cluster, args.n):
-		print('Silhouette does not support both inputs, cluster and n, to be entered together. '+
+		print('Silhouette does not support both inputs, cluster and n, to be entered together or to be both null. ' +
 				'Please check out documentation and pick one of the available options.')
 		sys.exit(0)
 
