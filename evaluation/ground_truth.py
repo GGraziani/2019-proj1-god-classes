@@ -27,7 +27,7 @@ def do_ground_truth_all(
 			kws=None):
 
 	print('\n> Defining ground truth for feature vector/s:')
-	[print("\t"+os.path.relpath(file[0])) for file in files]
+	[print("\t- "+os.path.relpath(file[0])) for file in files]
 
 	for p, n in files:
 		methods = get_fv_methods(p)

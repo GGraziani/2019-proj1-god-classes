@@ -1,7 +1,7 @@
 import sys
 import argparse
 from utils.doc_utils import *
-from utils.misc import listget
+from utils.misc import listget, get_paths_and_names
 
 
 # add one gateway function for each functionality
@@ -36,17 +36,39 @@ def prec_recall_gateway(args):
 	prec_recall.prec_recall_argparse(args)
 
 
+def run_all_gateway(args):
+	from pre_processing.find_god_classes import find_god_classes
+	god_classes = find_god_classes(source=args.source)
+
+	from pre_processing.extract_feature_vectors import extract_feature_vectors
+	args.f_vector = extract_feature_vectors(god_classes)
+	args.n = 5
+
+	from clustering import clustering_argparse
+	args.cluster = clustering_argparse(args)
+
+	from evaluation.ground_truth import do_ground_truth_all
+	from evaluation.ground_truth import get_keywords
+
+	args.g_truth = do_ground_truth_all(
+		files=get_paths_and_names(args.f_vector),
+		kws=get_keywords('./res/keywords.txt'))
+
+	from evaluation.prec_recall import prec_recall_argparse
+	prec_recall_argparse(args)
+
+
 parser = argparse.ArgumentParser()
 subparsers = parser.add_subparsers()
 
 # add subparser for find_god_classes
 p_find_god_classes = subparsers.add_parser('find_god_classes')
-p_find_god_classes.add_argument('-s', '-src', '--source', dest='source', default=None)
+p_find_god_classes.add_argument('-s', '--source', dest='source', default=None)
 p_find_god_classes.set_defaults(func=find_god_classes_gateway)
 
 # add subparser for extract_feature_vectors
 p_extract_feature_vectors = subparsers.add_parser('extract_feature_vectors')
-p_extract_feature_vectors.add_argument('-s', '-src', '--source', dest='source', default=None)
+p_extract_feature_vectors.add_argument('-s', '--source', dest='source', default=None)
 p_extract_feature_vectors.set_defaults(func=extract_feature_vectors_gateway)
 
 # add subparser for clustering
@@ -74,6 +96,12 @@ p_prec_recall = subparsers.add_parser('prec_recall')
 p_prec_recall.add_argument('-cl', '--cluster', dest='cluster', default=None)
 p_prec_recall.add_argument('-gt', '--ground_truth', dest="g_truth", default=None)
 p_prec_recall.set_defaults(func=prec_recall_gateway)
+
+# add subparser for run_all
+p_run_all = subparsers.add_parser('run_all')
+p_run_all.add_argument('-s', '--source', dest='source', default=None)
+p_run_all.add_argument('-a', '--algorithm', dest='algorithm', default='k-means')
+p_run_all.set_defaults(func=run_all_gateway)
 
 
 def main(argv):

@@ -46,6 +46,8 @@ def merge_paths_and_names_lists(aa, bb):
 
 def compute_precision_n_recall_all(cls, gts):
 
+	print('\n> Computing precision and recall:')
+
 	for k, v in merge_paths_and_names_lists(cls, gts).items():
 
 		cl = get_cl_dict(v[0])
@@ -56,7 +58,7 @@ def compute_precision_n_recall_all(cls, gts):
 
 		p, r = compute_precision_n_recall(dk, g)
 
-		print(k+": p="+str(p)+", r="+str(r))
+		print('\t- '+k+': p='+str(p)+', r='+str(r))
 
 
 def compute_precision_n_recall(ip_dk, ip_g):
