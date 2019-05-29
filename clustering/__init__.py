@@ -16,7 +16,7 @@ def clustering_argparse(args):
 		print("Enter a path to a feature vector (or a folder containing feature vectors).")
 		sys.exit(0)
 	elif not os.path.exists(args.f_vector):
-		print('%s is not a valid path, please enter a path to a valid feature vector (or a folder containing feature vectors)' % args.f_vector)
+		print('"%s" is not a valid path, please enter a path to a valid feature vector (or a folder containing feature vectors)' % args.f_vector)
 		sys.exit(0)
 	elif args.algorithm not in ALGORITHMS:
 		print("%s is not a valid algorithm, please pick one between {k-means, hierarchical}" % args.algorithm)
@@ -25,7 +25,7 @@ def clustering_argparse(args):
 		print("%s is not a valid digit, please enter a positive integer greater that 1" % args.n)
 		sys.exit(0)
 
-	do_all_cluster_from_path(
+	return do_all_cluster_from_path(
 		path=args.f_vector,
 		target=get_target_dir(args.algorithm),
 		f=ALGORITHMS.get(args.algorithm),
