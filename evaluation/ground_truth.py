@@ -26,11 +26,18 @@ def do_ground_truth_all(
 			files=None,
 			kws=None):
 
+	print('\n> Defining ground truth for feature vector/s:')
+	[print("\t"+os.path.relpath(file[0])) for file in files]
+
 	for p, n in files:
 		methods = get_fv_methods(p)
 		ground_truth = do_ground_truth(methods, kws)
 
 		write_df_to_csv(GT_DIR, gt_to_df(ground_truth, kws), n)
+
+	print('> Ground truth/s has/ve been written to folder "%s"' % os.path.abspath(GT_DIR))
+
+	return GT_DIR
 
 
 def find_match(name, kws):
