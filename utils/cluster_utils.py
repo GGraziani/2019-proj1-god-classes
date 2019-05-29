@@ -1,4 +1,6 @@
 import datetime
+import os
+
 import pandas as pd
 from utils.misc import get_paths_and_names, write_df_to_csv
 
@@ -30,10 +32,10 @@ def do_all_cluster_from_path(
 			f=None,
 			n=5):
 
-	print(path)
-	print(target)
-	print(f)
-	print(n)
+	path = os.path.abspath(path)
+	target = os.path.abspath(target)
+
+	print('\n> Clustering God class methods in file/folder "%s"' % path)
 
 	paths_and_names = get_paths_and_names(path)
 
@@ -41,3 +43,6 @@ def do_all_cluster_from_path(
 		df = f(el[0], n)
 
 		write_df_to_csv(target, df, el[1])
+
+	print('> Clusters have been written to folder "%s"' % target)
+	return target
