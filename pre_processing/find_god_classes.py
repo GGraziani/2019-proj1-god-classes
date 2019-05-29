@@ -5,7 +5,7 @@ from utils.misc import indent
 
 
 def find_god_classes(source=None):
-	print('\n> Looking for good classes in "%s"...' % source)
+	print('\n> Looking for god classes in "%s"...' % os.path.abspath(source))
 	df = pd.DataFrame(columns=['class_name', 'method_num', 'path_to_source'])
 
 	for root, dirs, files in os.walk(source, topdown=False):
