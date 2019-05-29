@@ -1,6 +1,6 @@
 ## Project 1 - God Classes
 
-###Documentation
+### Documentation
  
 For the general documentation run:
 
@@ -14,7 +14,7 @@ To launch the whole analysis at once run:
     
     python3 god_classes.py run_all -s <path-to-src> -a <algorithm-name> (i.e. k-means or hierarchical)
 
-# Examples usage:
+### Examples usage:
 The following are some example of commands:
 1. **Pre-processing**
     - find_god_classes:
