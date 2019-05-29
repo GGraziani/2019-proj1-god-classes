@@ -5,34 +5,35 @@ from utils.misc import listget
 
 
 # add one gateway function for each functionality
+
 def find_god_classes_gateway(args):
-    from pre_processing import find_god_classes
-    find_god_classes.find_god_classes_argparse(args)
+	from pre_processing import find_god_classes
+	find_god_classes.find_god_classes_argparse(args)
 
 
 def extract_feature_vectors_gateway(args):
-    from pre_processing import extract_feature_vectors
-    extract_feature_vectors.extract_feature_vectors_argparse(args)
+	from pre_processing import extract_feature_vectors
+	extract_feature_vectors.extract_feature_vectors_argparse(args)
 
 
 def clustering_gateway(args):
-    import clustering
-    clustering.clustering_argparse(args)
+	import clustering
+	clustering.clustering_argparse(args)
 
 
 def silhouette_gateway(args):
-    from clustering import silhouette
-    silhouette.silhouette_argparse(args)
+	from clustering import silhouette
+	silhouette.silhouette_argparse(args)
 
 
 def ground_truth_gateway(args):
-    from evaluation import ground_truth
-    ground_truth.ground_truth_argparse(args)
+	from evaluation import ground_truth
+	ground_truth.ground_truth_argparse(args)
 
 
 def prec_recall_gateway(args):
-    from evaluation import prec_recall
-    prec_recall.prec_recall_argparse(args)
+	from evaluation import prec_recall
+	prec_recall.prec_recall_argparse(args)
 
 
 parser = argparse.ArgumentParser()
@@ -76,31 +77,30 @@ p_prec_recall.set_defaults(func=prec_recall_gateway)
 
 
 def main(argv):
+	helpstrings = {'', '-h', '--help'}
 
-    helpstrings = {'', '-h', '--help'}
+	command = listget(argv, 0, '').lower()
 
-    command = listget(argv, 0, '').lower()
+	# The user did not enter a command, or the entered command is not recognized.
+	if command not in MODULE_DOCSTRINGS:
+		print(DOCSTRING)
+		if command == '':
+			print('You are seeing the default help text because you did not choose a command.')
+		elif command not in helpstrings:
+			print('You are seeing the default help text because "%s" was not recognized' % command)
+		return 1
 
-    # The user did not enter a command, or the entered command is not recognized.
-    if command not in MODULE_DOCSTRINGS:
-        print(DOCSTRING)
-        if command == '':
-            print('You are seeing the default help text because you did not choose a command.')
-        elif command not in helpstrings:
-            print('You are seeing the default help text because "%s" was not recognized' % command)
-        return 1
+	# The user entered a command, but no further arguments, or just help.
+	argument = listget(argv, 1, '').lower()
+	if argument in helpstrings:
+		print(MODULE_DOCSTRINGS[command])
+		return 1
 
-    # The user entered a command, but no further arguments, or just help.
-    argument = listget(argv, 1, '').lower()
-    if argument in helpstrings:
-        print(MODULE_DOCSTRINGS[command])
-        return 1
+	args = parser.parse_args(argv)
+	args.func(args)
 
-    args = parser.parse_args(argv)
-    args.func(args)
-
-    return 0
+	return 0
 
 
 if __name__ == '__main__':
-    raise SystemExit(main(sys.argv[1:]))
+	raise SystemExit(main(sys.argv[1:]))
