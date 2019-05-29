@@ -25,9 +25,10 @@ def extract_feature_vectors(god_classes):
 					all_feat_vectors[node.name] = generate_all(node)
 					write_df_to_csv(FV_DIR, all_feat_vectors[node.name], node.name)
 
-	print('> Feature vector/s has been written to folder "%s"' % FV_DIR)
+	fv_dir = os.path.abspath(FV_DIR)
+	print('> Feature vector/s has/ve been written to folder "%s"' % fv_dir)
 
-	return all_feat_vectors
+	return fv_dir
 
 
 def generate_all(node):
