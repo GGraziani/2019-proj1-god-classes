@@ -26,6 +26,7 @@ def get_cl_dict(cl_path):
 	return clusters
 
 
+# Computes all intrapairs
 def get_all_i_pairs(lstlst):
 	return [j for i in lstlst for j in get_i_pairs(i)]
 

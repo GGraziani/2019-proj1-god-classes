@@ -17,11 +17,15 @@ def extract_feature_vectors(god_classes):
 	class_names = god_classes.class_name.tolist()
 	all_feat_vectors = {}
 	for src_path in god_classes.path_to_source.tolist():
+		# open the class source
 		with(open(src_path, 'r')) as jsc:
+			# parse the class
 			tree = jl.parse.parse(jsc.read())
 
+			# iterates through the file classes
 			for path, node in tree.filter(jl.parser.tree.ClassDeclaration):
-				if node.name in class_names:
+				if node.name in class_names: # check whether the class is a god class
+					# Generates the feature vector for each class
 					all_feat_vectors[node.name] = generate_all(node)
 					write_df_to_csv(FV_DIR, all_feat_vectors[node.name], node.name)
 
@@ -56,10 +60,12 @@ def get_methods(node):
 
 def generate_feat_vector(method, fields, methods):
 	row = {'method_name': method.name}
-
+	# gets the fields accessed by the method
 	acc_fields = get_fields_accessed_by_method(method, fields)
+	# gets the methods accessed by the method
 	acc_methods = get_methods_accessed_by_method(method, methods)
 
+	# checks each accessed member with a "1"
 	for field in list(acc_fields)+list(acc_methods):
 		row[field] = 1
 

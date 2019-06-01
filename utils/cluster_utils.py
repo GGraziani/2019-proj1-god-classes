@@ -37,9 +37,11 @@ def do_all_cluster_from_path(
 
 	print('\n> Clustering God class methods in file/folder "%s"' % path)
 
+	# get all the feature vectors in the folder path
 	paths_and_names = get_paths_and_names(path)
 
 	for el in paths_and_names:
+		# applies teh function "f" (either k-means or hierarchical agglomerative)
 		df = f(el[0], n)
 
 		write_df_to_csv(target, df, el[1])
