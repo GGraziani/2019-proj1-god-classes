@@ -5,3 +5,6 @@ __pycache__
 res/feature_vectors
 res/clusters
 res/ground_truths
+res/test/
+
+res/xerces2-j/

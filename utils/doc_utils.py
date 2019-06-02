@@ -111,10 +111,15 @@ run_all:
     Run the whole analysis from the god classes detection to the results evaluation.
 
     Example usage:
-        $ python3 god_classes.py run_all -cl <path-to-cluster> -fv <path-to-feature-vector-or-folder>
+        $ python3 god_classes.py run_all -s <path-to-source>  -a k_means
 
     flags:
-    -s
+     -s <path-to-src> | --source <path-to-src>:
+        The path to the source code.
+        
+    -a <algorithm-name> | --algorithm <algorithm-name>:
+        The algorithm to use for generating the clusters.
+        Available algorithms are "k_means" and "hierarchical"
 '''
 }
 
